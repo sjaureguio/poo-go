@@ -3,23 +3,40 @@ package course
 import "fmt"
 
 type Course struct {
-	Name    string
+	name    string
 	Price   float64
 	IsFree  bool
 	UserIDs []uint
-	Classes map[uint]string
+	classes map[uint]string
 }
 
-func (c *Course) PrintClasses() {
+func New(name string, price float64, isFree bool) *Course {
+	if price == 0 {
+		price = 30.0
+	}
 
-	c.Name = "PostgreSQL Avanzado"
-	fmt.Println(c.Name)
-
-	for _, class := range c.Classes {
-		fmt.Println(class)
+	return &Course{
+		name:   name,
+		Price:  price,
+		IsFree: isFree,
 	}
 }
 
-func (c *Course) ChangePrice(price float64) {
-	c.Price = price
+func (c *Course) SetName(name string) {
+	c.name = name
+}
+
+func (c *Course) Name() string {
+	return c.name
+}
+
+func (c *Course) SetClasses(classes map[uint]string) {
+	c.classes = classes
+
+}
+
+func (c *Course) PrintClasses() {
+	for _, class := range c.classes {
+		fmt.Println(class)
+	}
 }
